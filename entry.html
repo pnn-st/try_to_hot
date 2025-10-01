@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Registration - NU Exchange</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="min-h-screen bg-gradient-to-br from-gray-50 via-gray-100 to-gray-200">
+    <div id="nav-container"></div>
+
+    <div class="container mx-auto px-6 py-12">
+        <div class="slide-in">
+            <div class="text-center mb-12">
+                <div class="inline-block p-6 rounded-full gradient-bg text-white shadow-2xl mb-6">
+                    <i data-lucide="user-plus" class="w-16 h-16"></i>
+                </div>
+                <h1
+                    class="text-6xl p-5 font-bold bg-gradient-to-r from-red-600 to-red-800 bg-clip-text text-transparent mb-4">
+                    Exchange Student Registration
+                </h1>
+            </div>
+
+            <div class="flex justify-center mb-12">
+                <div class="custom-toggle" id="modeToggle" onclick="toggleMode()">
+                    <div class="toggle-slider" id="toggleSlider">
+                        <span id="toggleText">Inbound</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="max-w-7xl mx-auto">
+                <form id="exchange-form" class="form-container rounded-3xl shadow-2xl p-12 space-y-10">
+                    <input type="hidden" id="formType" name="formType" value="inbound">
+
+                    <div class="text-center mb-8">
+                        <h2 class="text-4xl font-bold text-gray-800 mb-4">Student Exchange Registration</h2>
+                        <p class="text-lg text-gray-600">Please fill in all required information below</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 xl:grid-cols-2 gap-12">
+                        <div class="space-y-6">
+                            <div class="flex items-center space-x-3 mb-6">
+                                <div
+                                    class="w-8 h-8 rounded-full bg-gradient-to-br from-red-500 to-red-700 flex items-center justify-center">
+                                    <i data-lucide="user" class="w-4 h-4 text-white"></i>
+                                </div>
+                                <h3 class="text-2xl font-bold text-gray-800">Personal Information</h3>
+                            </div>
+
+                            <div class="space-y-2">
+                                <label class="block text-sm font-semibold text-gray-700">Full Name *</label>
+                                <input type="text" name="name" required
+                                    class="w-full px-4 py-4 border-2 border-gray-200 rounded-xl input-focus focus:border-red-500 focus:outline-none text-lg"
+                                    placeholder="Enter your full name">
+                            </div>
+
+                            <div class="space-y-2">
+                                <label class="block text-sm font-semibold text-gray-700">Student ID *</label>
+                                <input type="text" name="studentId" required
+                                    class="w-full px-4 py-4 border-2 border-gray-200 rounded-xl input-focus focus:border-red-500 focus:outline-none text-lg"
+                                    placeholder="e.g., 65001234">
+                            </div>
+
+                            <div class="space-y-2">
+                                <label class="block text-sm font-semibold text-gray-700">Email Address *</label>
+                                <input type="email" name="email" required
+                                    class="w-full px-4 py-4 border-2 border-gray-200 rounded-xl input-focus focus:border-red-500 focus:outline-none text-lg"
+                                    placeholder="your.email@example.com">
+                            </div>
+
+                            <div class="space-y-2">
+                                <label class="block text-sm font-semibold text-gray-700">Phone Number *</label>
+                                <input type="text" name="phone" required
+                                    class="w-full px-4 py-4 border-2 border-gray-200 rounded-xl input-focus focus:border-red-500 focus:outline-none text-lg"
+                                    placeholder="+1-555-0123">
+                            </div>
+
+                            <div class="space-y-2">
+                                <label class="block text-sm font-semibold text-gray-700">Passport Number *</label>
+                                <input type="text" name="passportNumber" required
+                                    class="w-full px-4 py-4 border-2 border-gray-200 rounded-xl input-focus focus:border-red-500 focus:outline-none text-lg"
+                                    placeholder="e.g., US123456789">
+                            </div>
+
+                            <div class="space-y-2">
+                                <label class="block text-sm font-semibold text-gray-700">Current Residence *</label>
+                                <input type="text" name="residence" required
+                                    class="w-full px-4 py-4 border-2 border-gray-200 rounded-xl input-focus focus:border-red-500 focus:outline-none text-lg"
+                                    placeholder="e.g., Student Dormitory A">
+                            </div>
+                        </div>
+
+                        <div class="space-y-6">
+                            <div class="flex items-center space-x-3 mb-6">
+                                <div
+                                    class="w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-blue-700 flex items-center justify-center">
+                                    <i data-lucide="graduation-cap" class="w-4 h-4 text-white"></i>
+                                </div>
+                                <h3 class="text-2xl font-bold text-gray-800">Academic Information</h3>
+                            </div>
+
+                            <div class="grid grid-cols-2 gap-6">
+                                <div class="space-y-2">
+                                    <label for="major" class="block text-sm font-semibold text-gray-700">Major *</label>
+                                    <select id="major" name="major" required
+                                        class="w-full px-4 py-4 border-2 border-gray-200 rounded-xl input-focus focus:border-red-500 focus:outline-none text-lg">
+                                        <option value="" disabled selected>Select major</option>
+                                        <option value="ce">Civil Engineering</option>
+                                        <option value="ie">Industrial Engineering</option>
+                                        <option value="me">Mechanical Engineering</option>
+                                        <option value="ee">Electrical Engineering</option>
+                                        <option value="cpe">Computer Engineering</option>
+                                        <option value="envi">Environmental Engineering</option>
+                                        <option value="mate">Materials Engineering</option>
+                                        <option value="chem">Chemical Engineering</option>
+                                        <option value="iie">Intelligent Innovation Engineering</option>
+                                    </select>
+                                </div>
+
+                                <div class="space-y-2">
+                                    <label for="year" class="block text-sm font-semibold text-gray-700">Academic Year
+                                        *</label>
+                                    <select id="year" name="year" required
+                                        class="w-full px-4 py-4 border-2 border-gray-200 rounded-xl input-focus focus:border-red-500 focus:outline-none text-lg">
+                                        <option value="" disabled selected>Select year</option>
+                                        <option value="1">1st Year</option>
+                                        <option value="2">2nd Year</option>
+                                        <option value="3">3rd Year</option>
+                                        <option value="4">4th Year</option>
+                                        <option value="5">5th Year</option>
+                                        <option value="6">6th Year</option>
+                                        <option value="7">7th Year</option>
+                                        <option value="8">8th Year</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="space-y-2">
+                                <label class="block text-sm font-semibold text-gray-700">Academic Adviser *</label>
+                                <input type="text" name="adviser" required
+                                    class="w-full px-4 py-4 border-2 border-gray-200 rounded-xl input-focus focus:border-red-500 focus:outline-none text-lg"
+                                    placeholder="e.g., Dr. Sarah Johnson">
+                            </div>
+
+                            <div class="space-y-2">
+                                <label class="block text-sm font-semibold text-gray-700" id="country-label">From Country
+                                    *</label>
+                                <input type="text" name="country" required
+                                    class="w-full px-4 py-4 border-2 border-gray-200 rounded-xl input-focus focus:border-red-500 focus:outline-none text-lg"
+                                    placeholder="e.g., Germany">
+                            </div>
+
+                            <div class="space-y-2">
+                                <label class="block text-sm font-semibold text-gray-700" id="university-label">From
+                                    University *</label>
+                                <input type="text" name="university" required
+                                    class="w-full px-4 py-4 border-2 border-gray-200 rounded-xl input-focus focus:border-red-500 focus:outline-none text-lg"
+                                    placeholder="e.g., Technical University of Munich">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="space-y-8 border-t border-gray-200 pt-10">
+                        <div class="flex items-center space-x-3 mb-6">
+                            <div
+                                class="w-8 h-8 rounded-full bg-gradient-to-br from-green-500 to-green-700 flex items-center justify-center">
+                                <i data-lucide="briefcase" class="w-4 h-4 text-white"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold text-gray-800">Project Information</h3>
+                        </div>
+
+                        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                            <div class="space-y-2">
+                                <label for="project" class="block text-sm font-semibold text-gray-700">Project Title
+                                    *</label>
+                                <input id="project" type="text" name="project" required
+                                    class="w-full px-4 py-4 border-2 border-gray-200 rounded-xl input-focus focus:border-red-500 focus:outline-none text-lg"
+                                    placeholder="e.g., AI in Sustainable Energy">
+                            </div>
+
+                            <div class="space-y-2">
+                                <label for="funder" class="block text-sm font-semibold text-gray-700">Funding Source
+                                    *</label>
+                                <input id="funder" type="text" name="funder" required
+                                    class="w-full px-4 py-4 border-2 border-gray-200 rounded-xl input-focus focus:border-red-500 focus:outline-none text-lg"
+                                    placeholder="e.g., Erasmus+ Program">
+                            </div>
+
+                            <div class="space-y-2">
+                                <label for="budget" class="block text-sm font-semibold text-gray-700">Budget (THB)
+                                    *</label>
+                                <input id="budget" type="number" name="budget" required
+                                    class="w-full px-4 py-4 border-2 border-gray-200 rounded-xl input-focus focus:border-red-500 focus:outline-none text-lg"
+                                    placeholder="15000">
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                            <div class="space-y-2">
+                                <label for="fromdate" class="block text-sm font-semibold text-gray-700">Start Date
+                                    *</label>
+                                <input id="fromdate" type="date" name="fromdate" required
+                                    class="w-full px-4 py-4 border-2 border-gray-200 rounded-xl input-focus focus:border-red-500 focus:outline-none text-lg">
+                            </div>
+
+                            <div class="space-y-2">
+                                <label for="todate" class="block text-sm font-semibold text-gray-700">End Date *</label>
+                                <input id="todate" type="date" name="todate" required
+                                    class="w-full px-4 py-4 border-2 border-gray-200 rounded-xl input-focus focus:border-red-500 focus:outline-none text-lg">
+                            </div>
+                        </div>
+
+                        <div class="space-y-2">
+                            <label class="block text-sm font-semibold text-gray-700">Additional Details</label>
+                            <textarea name="details" rows="5"
+                                class="w-full px-4 py-4 border-2 border-gray-200 rounded-xl input-focus focus:border-red-500 focus:outline-none resize-none text-lg"
+                                placeholder="Any additional information about your exchange program..."></textarea>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-center pt-10">
+                        <button type="submit"
+                            class="bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white font-bold py-5 px-16 rounded-2xl shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300 flex items-center space-x-4 text-xl">
+                            <i data-lucide="send" class="w-7 h-7"></i>
+                            <span>Submit Application</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        let currentMode = 'inbound';
+
+        document.addEventListener('DOMContentLoaded', function () {
+            loadNavigation();
+            initializeIcons();
+            setupFormHandlers();
+        });
+
+        function toggleMode() {
+            const toggle = document.getElementById('modeToggle');
+            const text = document.getElementById('toggleText');
+            const countryLabel = document.getElementById('country-label');
+            const universityLabel = document.getElementById('university-label');
+            const formType = document.getElementById('formType');
+
+            if (currentMode === 'inbound') {
+                currentMode = 'outbound';
+                toggle.classList.add('checked');
+                text.textContent = 'Outbound';
+                countryLabel.textContent = 'Host Country *';
+                universityLabel.textContent = 'Host University *';
+                formType.value = 'outbound';
+            } else {
+                currentMode = 'inbound';
+                toggle.classList.remove('checked');
+                text.textContent = 'Inbound';
+                countryLabel.textContent = 'From Country *';
+                universityLabel.textContent = 'From University *';
+                formType.value = 'inbound';
+            }
+        }
+
+        function setupFormHandlers() {
+            const form = document.getElementById('exchange-form');
+            if (form) {
+                form.addEventListener('submit', handleFormSubmission);
+
+                const inputs = form.querySelectorAll('input, select, textarea');
+                inputs.forEach(input => {
+                    input.addEventListener('blur', validateField);
+                });
+            }
+        }
+
+        async function handleFormSubmission(e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+            const data = Object.fromEntries(formData.entries());
+
+            const errors = FormValidator.validateForm(data);
+            if (errors.length > 0) {
+                UIUtils.showNotification(errors[0], 'error');
+                return;
+            }
+
+            const submitBtn = this.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<div class="animate-spin w-6 h-6 border-2 border-white border-t-transparent rounded-full"></div><span>Submitting...</span>';
+            submitBtn.disabled = true;
+
+            UIUtils.showLoading(true);
+            const success = await ExchangeDataManager.addRecord(data);
+            UIUtils.showLoading(false);
+
+            if (success) {
+                UIUtils.showNotification('Application submitted successfully!', 'success');
+                this.reset();
+                currentMode = 'inbound';
+                document.getElementById('formType').value = 'inbound';
+                document.getElementById('toggleSlider').parentElement.classList.remove('checked');
+                document.getElementById('toggleText').textContent = 'Inbound';
+                document.getElementById('country-label').textContent = 'From Country *';
+                document.getElementById('university-label').textContent = 'From University *';
+
+                const successModal = ModalManager.openModal('Application Submitted', `
+                    <div class="text-center py-8">
+                        <div class="w-20 h-20 mx-auto bg-green-100 rounded-full flex items-center justify-center mb-6">
+                            <i data-lucide="check" class="w-10 h-10 text-green-600"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-gray-800 mb-4">Success!</h3>
+                        <p class="text-gray-600 mb-6">Your exchange application has been submitted successfully.</p>
+                        <div class="space-y-2 text-sm text-gray-500">
+                            <p><strong>Student:</strong> ${data.name}</p>
+                            <p><strong>Program:</strong> ${data.formType} Exchange</p>
+                            <p><strong>Project:</strong> ${data.project}</p>
+                        </div>
+                    </div>
+                `);
+                initializeIcons();
+            } else {
+                UIUtils.showNotification('Error submitting application. Please try again.', 'error');
+            }
+
+            submitBtn.innerHTML = originalText;
+            submitBtn.disabled = false;
+            initializeIcons();
+        }
+
+        function validateField(e) {
+            const field = e.target;
+            const value = field.value.trim();
+
+            field.classList.remove('border-red-500', 'border-green-500');
+
+            if (!field.hasAttribute('required') && !value) return;
+
+            let isValid = true;
+
+            switch (field.type) {
+                case 'email':
+                    isValid = FormValidator.validateEmail(value);
+                    break;
+                case 'tel':
+                case 'number':
+                    isValid = FormValidator.validateBudget(value);
+                    break;
+                default:
+                    isValid = FormValidator.validateRequired(value);
+            }
+
+            if (value) {
+                field.classList.add(isValid ? 'border-green-500' : 'border-red-500');
+            }
+        }
+    </script>
+</body>
+
+</html>

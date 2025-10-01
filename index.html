@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NU International Exchange System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="min-h-screen bg-gradient-to-br from-gray-50 via-gray-100 to-gray-200">
+    <div id="nav-container"></div>
+
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <!-- Hero -->
+        <div class="text-center mb-12 md:mb-16 slide-in">
+            <div class="floating mb-8 md:mb-12 relative">
+                <div class="inline-block p-6 md:p-10 rounded-full text-white shadow-2xl relative overflow-hidden">
+                    <img class="w-32 h-32 sm:w-28 sm:h-28 md:w-64 md:h-64" src="2015_color.png" alt="2015_color.png">
+                </div>
+            </div>
+            <h1 class="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-extrabold gradient-text mb-6">
+                NU International Exchange
+            </h1>
+        </div>
+
+        <!-- Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 max-w-6xl mx-auto mb-12 md:mb-16">
+            <div class="feature-card hover-scale cursor-pointer" onclick="navigateToEntry()">
+                <div class="absolute inset-0 bg-gradient-to-br from-red-500/5 to-red-700/10 rounded-3xl"></div>
+                <div class="relative z-10 p-6 md:p-10">
+                    <div
+                        class="w-16 h-16 md:w-20 md:h-20 mx-auto bg-gradient-to-br from-red-500 to-red-700 rounded-2xl flex items-center justify-center shadow-lg mb-4 md:mb-6">
+                        <i data-lucide="users" class="w-8 h-8 md:w-10 md:h-10 text-white"></i>
+                    </div>
+                    <h3 class="text-2xl md:text-3xl font-bold mb-3 md:mb-4">Exchange Student Registration</h3>
+                    <p class="text-base md:text-lg text-gray-600">Register for exchange programs</p>
+                    <div class="mt-4 md:mt-6 text-red-600 flex items-center justify-center font-semibold">
+                        Get Started <i data-lucide="arrow-right" class="ml-2 w-4 h-4 md:w-5 md:h-5"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="feature-card hover-scale cursor-pointer" onclick="navigateToView()">
+                <div class="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-blue-700/10 rounded-3xl"></div>
+                <div class="relative z-10 p-6 md:p-10">
+                    <div
+                        class="w-16 h-16 md:w-20 md:h-20 mx-auto bg-gradient-to-br from-blue-500 to-blue-700 rounded-2xl flex items-center justify-center shadow-lg mb-4 md:mb-6">
+                        <i data-lucide="bar-chart-3" class="w-8 h-8 md:w-10 md:h-10 text-white"></i>
+                    </div>
+                    <h3 class="text-2xl md:text-3xl font-bold mb-3 md:mb-4">Data Management</h3>
+                    <p class="text-base md:text-lg text-gray-600">View and manage student exchange records</p>
+                    <div class="mt-4 md:mt-6 text-blue-600 flex items-center justify-center font-semibold">
+                        View Records <i data-lucide="arrow-right" class="ml-2 w-4 h-4 md:w-5 md:h-5"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Statistics -->
+        <div class="bg-white/80 backdrop-blur-sm rounded-3xl shadow-2xl p-8 md:p-12 border border-white/20">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-8 md:mb-12">Exchange Program Impact</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-8 text-center">
+                <div>
+                    <div class="text-5xl md:text-6xl font-extrabold gradient-counter mb-2 md:mb-3" id="total-students">0
+                    </div>
+                    <p class="text-base md:text-lg text-gray-600">Total Students</p>
+                </div>
+                <div>
+                    <div class="text-5xl md:text-6xl font-extrabold gradient-counter mb-2 md:mb-3" id="countries">0
+                    </div>
+                    <p class="text-base md:text-lg text-gray-600">Partner Countries</p>
+                </div>
+                <div>
+                    <div class="text-5xl md:text-6xl font-extrabold gradient-counter mb-2 md:mb-3" id="universities">0
+                    </div>
+                    <p class="text-base md:text-lg text-gray-600">Partner Universities</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Charts Section -->
+        <div class="bg-white/80 backdrop-blur-sm rounded-3xl shadow-2xl p-6 md:p-8 border border-white/20 mt-12">
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-6 md:mb-8">
+                <h2 class="text-2xl md:text-3xl font-bold text-gray-800">Exchange Program Overview</h2>
+                <select id="filterType"
+                    class="mt-4 md:mt-0 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 text-sm md:text-base">
+                    <option value="">All (Inbound + Outbound)</option>
+                    <option value="inbound">Inbound Only</option>
+                    <option value="outbound">Outbound Only</option>
+                </select>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
+                <!-- Chart 1 -->
+                <div class="bg-white rounded-3xl shadow-xl p-4 md:p-6 hover-scale flex flex-col items-center">
+                    <h3 class="text-lg md:text-xl lg:text-2xl font-bold text-gray-800 mb-4 md:mb-6 text-center">Inbound
+                        vs Outbound</h3>
+                    <div class="relative w-48 h-48 sm:w-56 sm:h-56 md:w-72 md:h-72">
+                        <canvas id="programTypeChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Chart 2 -->
+                <div class="bg-white rounded-3xl shadow-xl p-4 md:p-6 hover-scale flex flex-col items-center">
+                    <h3 class="text-lg md:text-xl lg:text-2xl font-bold text-gray-800 mb-4 md:mb-6 text-center">Students
+                        by Country</h3>
+                    <div class="relative w-full h-64 md:h-72 lg:h-80">
+                        <canvas id="countryChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        function navigateToEntry() { window.location.href = 'entry.html'; }
+        function navigateToView() { window.location.href = 'view.html'; }
+
+        let programTypeChart, countryChart;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            loadNavigation();
+            loadStatistics();
+            lucide.createIcons();
+            renderPieChart();
+            renderBarChart();
+
+            const filterSelect = document.getElementById('filterType');
+            filterSelect.addEventListener('change', e => {
+                renderBarChart(e.target.value);
+                loadStatistics(e.target.value);
+            });
+        });
+
+        async function loadStatistics(filter = "") {
+            UIUtils.showLoading(true);
+            const rawData = await ExchangeDataManager.loadData();
+            UIUtils.showLoading(false);
+
+            const data = filter ? rawData.filter(d => d.formType === filter) : rawData;
+
+            animateCounter('total-students', data.length);
+            animateCounter('countries', new Set(data.map(d => d.country)).size);
+            animateCounter('universities', new Set(data.map(d => d.university)).size);
+        }
+
+
+        function animateCounter(id, target) {
+            let el = document.getElementById(id), n = 0, step = target / 50;
+            let timer = setInterval(() => {
+                n += step;
+                if (n >= target) { n = target; clearInterval(timer); }
+                el.textContent = Math.floor(n);
+            }, 30);
+        }
+
+        async function renderPieChart() {
+            const data = await ExchangeDataManager.loadData();
+            if (programTypeChart) programTypeChart.destroy();
+
+            const inbound = data.filter(d => d.formType === 'inbound').length;
+            const outbound = data.filter(d => d.formType === 'outbound').length;
+
+            programTypeChart = new Chart(document.getElementById('programTypeChart'), {
+                type: 'doughnut',
+                data: {
+                    labels: ['Inbound', 'Outbound'],
+                    datasets: [{
+                        data: [inbound, outbound],
+                        backgroundColor: ['#16a34a', '#2563eb'],
+                        borderWidth: 3,
+                        borderColor: '#f9fafb',
+                        hoverBorderColor: '#e5e7eb'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutout: '65%',
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                color: '#374151',
+                                font: { size: 13, weight: '600' }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+        async function renderBarChart(filter = "") {
+            const rawData = await ExchangeDataManager.loadData();
+            const data = filter ? rawData.filter(d => d.formType === filter) : rawData;
+            if (countryChart) countryChart.destroy();
+
+            const countryCounts = {};
+            data.forEach(d => {
+                if (d.country) countryCounts[d.country] = (countryCounts[d.country] || 0) + 1;
+            });
+
+            const colors = [
+                '#C1111F', '#2563eb', '#16a34a', '#9333ea', '#f59e0b',
+                '#0ea5e9', '#dc2626', '#059669', '#7c3aed', '#d97706'
+            ];
+            const barColors = Object.keys(countryCounts).map((_, i) => colors[i % colors.length]);
+
+            countryChart = new Chart(document.getElementById('countryChart'), {
+                type: 'bar',
+                data: {
+                    labels: Object.keys(countryCounts),
+                    datasets: [{
+                        label: 'Students',
+                        data: Object.values(countryCounts),
+                        backgroundColor: barColors,
+                        borderRadius: 12
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: { color: '#4b5563', font: { size: 12 } },
+                            grid: { color: 'rgba(0,0,0,0.05)' }
+                        },
+                        x: {
+                            ticks: { color: '#4b5563', font: { size: 12 } },
+                            grid: { display: false }
+                        }
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+
+</html>
