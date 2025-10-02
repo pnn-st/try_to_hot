@@ -226,6 +226,7 @@
             allData = await ExchangeDataManager.loadData();
             filteredData = [...allData];
             updateRecordCount();
+            renderTable();
         }
 
         async function refreshTable() {
